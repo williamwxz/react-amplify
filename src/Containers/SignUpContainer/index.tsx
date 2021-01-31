@@ -25,7 +25,7 @@ type UserFormData = {
   lname: string;
   password: string;
   email: string;
-  phoneNumber: number;
+  // phoneNumber: number;
 };
 
 const passwordValidator = require('password-validator');
@@ -90,7 +90,7 @@ class SignUpContainer extends React.Component<Props, State> {
 
     this.props.form.validateFieldsAndScroll((err: Error, values: UserFormData) => {
       if (!err) {
-        let { fname, lname, password, email, phoneNumber } = values;
+        let { fname, lname, password, email } = values;
 
         // show loader
         this.setState({ loading: true });
@@ -100,8 +100,8 @@ class SignUpContainer extends React.Component<Props, State> {
           password,
           attributes: {
             email,
-            name: `${fname} ${lname}`,
-            phone_number: phoneNumber
+            name: `${fname} ${lname}`
+            // phone_number: phoneNumber
           }
         })
           .then(() => {
@@ -231,7 +231,7 @@ class SignUpContainer extends React.Component<Props, State> {
               rules: [{ required: true, message: 'Please input your email!' }]
             })(<Input prefix={<Icon type="user" style={{ color: colors.transparentBlack }} />} placeholder="Email" />)}
           </Form.Item>
-          <Form.Item>
+          {/* <Form.Item>
             {getFieldDecorator('phoneNumber', {
               rules: [
                 {
@@ -245,7 +245,7 @@ class SignUpContainer extends React.Component<Props, State> {
                 placeholder="Phone Number"
               />
             )}
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item>
             <Popover placement="right" title={title} content={passwordPolicyContent} trigger="focus">
               {getFieldDecorator('password', {
@@ -293,7 +293,7 @@ class SignUpContainer extends React.Component<Props, State> {
                 </Button>
               </Col>
               <Col lg={24}>
-                Or <Link to="/login">login to your account!</Link>
+                Or <Link to="/login">login to your account</Link>
               </Col>
             </Row>
           </Form.Item>

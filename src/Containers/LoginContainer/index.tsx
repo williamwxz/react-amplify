@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import { Form, Icon, Spin, Input, Button, notification, Col, Row } from 'antd';
@@ -22,7 +22,10 @@ type State = {
 
 class LoginContainer extends React.Component<Props, State> {
   state = {
-    loading: false
+    loading: false,
+    from: {
+      pathname: '/dashboard'
+    }
   };
 
   handleSubmit = (event: React.FormEvent) => {
@@ -37,22 +40,27 @@ class LoginContainer extends React.Component<Props, State> {
         Auth.signIn(username, password)
           .then(user => {
             const { history, location } = this.props;
-            const { from } = location.state || {
-              from: {
-                pathname: '/dashboard'
-              }
-            };
+            // const { from } = location.state || {
+            //   from: {
+            //     pathname: '/dashboard'
+            //   }
+            // };
 
             localStorage.setItem(AUTH_USER_TOKEN_KEY, user.signInUserSession.accessToken.jwtToken);
 
             notification.success({
               message: 'Succesfully logged in!',
-              description: 'Logged in successfully, Redirecting you in a few!',
+              description: 'Logged in successfully...',
               placement: 'topRight',
               duration: 1.5
             });
 
-            history.push(from);
+            // if (!location.state) {
+            //   history.push({
+            //     pathname: '/dashboard'
+            //   })
+            // };
+            history.push('/dashboard');
           })
           .catch(err => {
             notification.error({
@@ -106,11 +114,11 @@ class LoginContainer extends React.Component<Props, State> {
           </Form.Item>
           <Form.Item className="text-center">
             <Row type="flex" gutter={16}>
-              <Col lg={24}>
+              {/* <Col lg={24}>
                 <Link style={{ float: 'right' }} className="login-form-forgot" to="/forgot-password">
                   Forgot password
                 </Link>
-              </Col>
+              </Col> */}
               <Col lg={24}>
                 <Button
                   style={{ width: '100%' }}
@@ -123,7 +131,7 @@ class LoginContainer extends React.Component<Props, State> {
                 </Button>
               </Col>
               <Col lg={24}>
-                Or <Link to="/signup">register now!</Link>
+                Or <Link to="/signup">click here to register</Link>
               </Col>
             </Row>
           </Form.Item>

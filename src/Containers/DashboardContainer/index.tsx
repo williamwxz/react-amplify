@@ -29,14 +29,14 @@ const DashBoardContainer: React.SFC<RouteComponentProps> = props => {
       <Layout.Sider className="cover" trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">
+          {/* <Menu.Item key="1">
             <Icon type="home" />
             <span>Home</span>
           </Menu.Item>
           <Menu.Item key="2">
             <Icon type="setting" />
             <span>Settings</span>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="3" onClick={event => handleLogout(event)}>
             <Icon type="logout" />
             <span>Logout</span>
